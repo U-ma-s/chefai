@@ -8,7 +8,7 @@ final class ViewModel: ObservableObject{
     private var client: OpenAISwift?
     
     func setup() {
-        client = OpenAISwift(authToken: "{your OpenAI's API key}")
+        client = OpenAISwift(authToken: "{Your OpenAI's API Key}")
     }
     
     func send(text: String,

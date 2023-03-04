@@ -8,17 +8,23 @@ struct ContentView: View {
     @ObservedObject var viewModel = ViewModel()
     @State var text = ""
     @State var models = [String]()
+
+    
     
     var body: some View {
-        VStack(alignment: .leading) {
-            ForEach(models, id: \.self) { string in
-                Text(string)
+        
+        VStack{
+            List {
+                ForEach(models, id: \.self) { string in
+                    Text(string)
+                }
+                
             }
-            Spacer()
             HStack {
                 TextField("Type here...", text: $text)
                 Button("Send") {
                     send()
+                    text = ""
                 }
             }
             .onAppear {
@@ -26,7 +32,9 @@ struct ContentView: View {
             }
         }
         .padding()
-    }
+   }
+
+    
     func send() {
         guard !text.trimmingCharacters(in: .whitespaces).isEmpty else {
             return
@@ -36,11 +44,11 @@ struct ContentView: View {
         viewModel.send(text: text) { respons in
             DispatchQueue.main.async {
                 self.models.append("ChatGPT: "+respons)
-                self.text = ""
+                
             }
         }
     }
-
+    
 }
 
 
